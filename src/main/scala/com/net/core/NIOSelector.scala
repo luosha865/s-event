@@ -8,7 +8,7 @@ import rx.lang.scala.{Observable, Observer, Subscription}
 import scala.collection.JavaConversions
 
 /** Handle nio channel selection. */
-class NioSelector extends SelectService{ //with Runnable
+class NioSelector extends SelectService { // with Runnable
 
   val selector = SelectorProvider.provider.openSelector()
   var running = true
@@ -39,25 +39,26 @@ class NioSelector extends SelectService{ //with Runnable
 
   def selectOnce(timeout: Long) {
     selector.select(timeout)
-    val set: java.util.Set[SelectionKey] = selector.selectedKeys
-    val iter = set.iterator()
-    //val iter = JavaConversions.asScalaSet(jKeys).iterator
-    selector.selectedKeys.clear()
+    val jKeys: java.util.Set[SelectionKey] = selector.selectedKeys
+    val iter = jKeys.iterator()
+    val keys = JavaConversions.asScalaSet(jKeys)
+    //keys map { key => key.attachment().asInstanceOf[Observer[Event]].onNext(AcceptEvent(this,key.channel())) }
     while (iter.hasNext){
       val key = iter.next()
       val observer = Option(key.attachment().asInstanceOf[Observer[Event]])
       if (key.isAcceptable) {
-        observer.foreach(_.onNext(AcceptEvent(this, key.channel())))
+        observer.foreach(_.onNext(Event(this, key.channel(),"accept")))
       }
       if (key.isConnectable) {
-        observer.foreach(_.onNext(ConnectEvent(this, key.channel())))
+        observer.foreach(_.onNext(Event(this, key.channel(),"connect")))
       }
       if (key.isReadable) {
-        observer.foreach(_.onNext(ReadEvent(this, key.channel())))
+        observer.foreach(_.onNext(Event(this, key.channel(),"read")))
       }
       if (key.isWritable) {
-        observer.foreach(_.onNext(WriteEvent(this, key.channel())))
+        observer.foreach(_.onNext(Event(this, key.channel(),"write")))
       }
+      iter.remove()
     }
   }
 }

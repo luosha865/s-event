@@ -11,12 +11,12 @@ import scala.util.continuations._
 object NioConnection {
   def newConnection(selector: NioSelector, socket: SocketChannel) {
     val conn = new NioConnection(selector, socket)
-    conn.start()
+    //conn.start()
   }
 }
 
 class NioConnection(selector: NioSelector, socket: SocketChannel) {
-
+/*
   private val buffer = ByteBuffer.allocateDirect(2000)
 
   def start(): Unit = {
@@ -51,4 +51,5 @@ class NioConnection(selector: NioSelector, socket: SocketChannel) {
     socket.write(b)
     b.clear()
   }
+  */
 }

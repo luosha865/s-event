@@ -20,7 +20,7 @@ class NIOServer(port: Int) {
       observable.subscribe(new Observer[Event] {
         override def onNext(event: Event) {
           event.channel.asInstanceOf[SocketChannel].write(ByteBuffer.wrap("Hello, World!\n".getBytes("UTF-8")))
-          event.channel.close()
+          //event.channel.close()
         }
       })
   }
