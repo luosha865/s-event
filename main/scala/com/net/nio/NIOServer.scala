@@ -2,6 +2,8 @@ package com.net.nio
 
 import java.net.InetAddress
 
+import com.net.core.{NIOServer, NioSelector, NioListener}
+
 object NIOServer {
   def main(args: Array[String]) {
     val hostAddr: InetAddress = InetAddress.getByName("localhost")

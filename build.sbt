@@ -16,3 +16,5 @@ libraryDependencies +=
   "org.scala-lang.plugins" %% "scala-continuations-library" % "1.0.2"
 
 scalacOptions += "-P:continuations:enable"
+
+libraryDependencies += "io.reactivex" %% "rxscala" % "0.24.1"

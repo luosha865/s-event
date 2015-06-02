@@ -6,6 +6,8 @@ import java.nio.channels.SelectionKey
 import java.nio.channels.ServerSocketChannel
 import java.nio.channels.SocketChannel
 
+import com.net.core.NioSelector
+
 import scala.util.continuations.reset
 import scala.util.continuations.shift
 import scala.util.continuations.suspendable

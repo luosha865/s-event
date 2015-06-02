@@ -4,6 +4,8 @@ import java.nio.ByteBuffer
 import java.nio.channels.SelectionKey
 import java.nio.channels.SocketChannel
 
+import com.net.core.NioSelector
+
 import scala.util.continuations._
 
 object NioConnection {
